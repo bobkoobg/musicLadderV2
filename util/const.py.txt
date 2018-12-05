@@ -1,0 +1,15 @@
+#example of const.py
+
+WIN   =  "WIN"
+DRAW  =  "DRAW"
+LOSS  =  "LOSS"
+
+ELO_K_FACTOR_NEWBIE   =   50.0
+ELO_K_FACTOR_DOWN2400 =   35.0
+ELO_K_FACTOR_UP2400   =   25.0
+DEFAULT_ELO_K_FACTOR  =   50.0
+
+MYSQL_HOST      =   ""
+MYSQL_DATABASE  =   ""
+MYSQL_USER      =   ""
+MYSQL_PASSWORD  =   ""
