@@ -2,15 +2,20 @@
 <html>
   <head>
     {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <title>{% block title %}{% endblock %} - My Webpage</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/libs.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/flexee.css') }}">
+      <title>{% block title %}{% endblock %} - My Webpage</title>
     {% endblock %}
-
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/libs.js') }}"></script>
   </head>
   <body>
-    <div id="content">{% block content %}{% endblock %}</div>
+    {% include 'leftnav.html' %}
+    <div class="all-content-wrapper desktop-4-80">
+      {% include 'topnav.html' %}
+      {% block content %}{% endblock %}
+    </div>
     <div id="footer">
       {% block footer %}
       &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.

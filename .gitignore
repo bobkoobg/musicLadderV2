@@ -2,4 +2,5 @@
 util/const.py
 node_modules/*
 theme/js/framework/*
+theme/scss/framework/*
 static/*

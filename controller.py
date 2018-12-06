@@ -3,7 +3,7 @@ from random import randint
 
 #import own lib
 from util.database_connection import DatabaseConnector
-from tournament_matchup import InitializeCupTournament
+from util.tournament_matchup import InitializeCupTournament
 from util.rating_calculator import EloCalculator
 from model.game import GameModel
 from model.song_tournament import SongTournamentModel

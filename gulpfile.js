@@ -21,6 +21,21 @@ function productionTask(cb) {
   .pipe(gulp.dest('static/css'));
 
   gulp.src([
+    'theme/scss/framework/metisMenu-vertical.scss',
+    'theme/scss/framework/metisMenu.min.scss'
+  ])
+  .pipe(sass())
+  .pipe(concat('libs.css'))
+  .pipe(gulp.dest('static/css'));
+
+  gulp.src([
+    'theme/scss/flexee.scss'
+  ])
+  .pipe(sass())
+  .pipe(concat('flexee.css'))
+  .pipe(gulp.dest('static/css'));
+
+  gulp.src([
     'theme/js/main.js',
     'theme/js/test.js'
   ])
@@ -29,7 +44,9 @@ function productionTask(cb) {
 
   gulp.src([
     'theme/js/framework/chart-2.7.3.min.js',
-    'theme/js/framework/chartbundle-2.7.3.min.js'
+    'theme/js/framework/chartbundle-2.7.3.min.js',
+    'theme/js/framework/metisMenu.min.js',
+    'theme/js/framework/metisMenu-active.js'
   ])
   .pipe(concat('libs.js'))
   .pipe(uglify())
