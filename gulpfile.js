@@ -4,14 +4,8 @@ const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
 const watch = require('gulp-watch');
 
-function defaultTask(cb) {
-  console.log("\t\tYes, I work");
-  cb();
-}
-
-function productionTask(cb) {
-  console.log("\t\tProduction!");
-
+function scssJob(){
+  console.log("\t\tscssJob");
   gulp.src([
     'theme/scss/main.scss',
     'theme/scss/test.scss'
@@ -34,7 +28,10 @@ function productionTask(cb) {
   .pipe(sass())
   .pipe(concat('flexee.css'))
   .pipe(gulp.dest('static/css'));
+}
 
+function jsJob(){
+  console.log("\t\tjsJob");
   gulp.src([
     'theme/js/main.js',
     'theme/js/test.js'
@@ -58,27 +55,33 @@ function productionTask(cb) {
   .pipe(concat('jquery.js'))
   .pipe(uglify())
   .pipe(gulp.dest('static/js'));
+}
 
+function productionJob() {
+  console.log("\t\tproductionJob");
+  scssJob();
+  jsJob();
+}
+
+function defaultTask(cb) {
+  console.log("\t\tdefaultTask");
+  productionJob();
   cb();
 }
 
-// gulp.task('stream', function () {
-// 	// Endless stream mode
-//     return watch('scss/**/*.scss', { ignoreInitial: false })
-//       .pipe(sass())
-//       .pipe(concat('main.css'))
-//       .pipe(gulp.dest('css'));
-// });
-//
-// gulp.task('callback', function () {
-// 	// Callback mode, useful if any plugin in the pipeline depends on the `end`/`flush` event
-//   return watch('scss/**/*.scss', function () {
-//       gulp.src('scss/**/*.scss')
-//         .pipe(sass())
-//         .pipe(concat('main.css'))
-//         .pipe(gulp.dest('css'));
-//   });
-// });
+function productionTask(cb) {
+  console.log("\t\tproductionTask");
+  productionJob();
+  cb();
+}
+
+function watchTask(cb) {
+  console.log("\t\twatchTask");
+  gulp.watch('theme/scss/*.scss', gulp.series('production'));
+  gulp.watch('theme/js/*.js', gulp.series('production'));
+  cb();
+}
 
 exports.default = defaultTask
 exports.production = productionTask
+exports.watch = watchTask
