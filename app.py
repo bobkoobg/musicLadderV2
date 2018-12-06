@@ -1,7 +1,9 @@
 from flask import Flask, request, url_for, render_template, make_response, redirect
 import json
 
-app = Flask(__name__)
+app = Flask(__name__,
+    template_folder = "theme/template"
+)
 
 @app.route('/')
 def index():
@@ -42,7 +44,13 @@ def login():
 def hello(name=None):
     print(request.cookies.get('username'))
 
-    resp = make_response( render_template('hello.html', name=name) )
+    resp = make_response(
+        render_template(
+            'hello.html',
+            name=name,
+            WEBSITE_URL="http://localhost:5000/"
+        )
+    )
     resp.set_cookie('usernametwo', 'theusername')
     return resp
 
@@ -57,3 +65,5 @@ with app.test_request_context():
 #python -m flask run
 #set FLASK_ENV=development / production (in terminal)
 #set SERVER_NAME=bobbycom
+
+app.run(debug=True)

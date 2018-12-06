@@ -26,7 +26,7 @@ init_cup_tour = InitializeCupTournament(connector,cup_tournament_id)
 
 for (id, tournament_id, user_id, ucalias, state, round, song_left_id, s1title, s1url, u1alias, song_left_before_rating, song_left_after_rating, song_left_score, song_right_score, song_right_after_rating, song_right_before_rating, song_right_id, s2title, s2url, u2alias, creation_time, modification_time) in games_list:
     # print(id, state, round, song_left_id, song_left_before_rating, "-vs-" , song_left_before_rating, song_right_id)
-    left_score = randint(0, 9)
+    left_score = randint(0, 10)
     right_score = 10 - left_score
 
     song_left_new_rating = song_tournament_model.get_current_rating_by_id(tournament_id,song_left_id)

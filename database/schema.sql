@@ -367,8 +367,8 @@ UPDATE game_TBL
 SELECT * FROM user_TBL;
 SELECT * FROM song_TBL;
 SELECT * FROM tournament_TBL;
-SELECT * FROM game_TBL;
-SELECT * FROM song_tournament_TBL;
+SELECT * FROM game_TBL where tournament_id = 2;
+SELECT * FROM song_tournament_TBL WHERE tournament_id = 2 ORDER BY rating DESC;
 
 #SELECT
 #	g.id, g.tournament_id, g.user_id, uc.alias,
