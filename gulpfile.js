@@ -18,15 +18,29 @@ function productionTask(cb) {
   ])
   .pipe(sass())
   .pipe(concat('main.css'))
-  .pipe(gulp.dest('css'));
+  .pipe(gulp.dest('static/css'));
 
   gulp.src([
     'theme/js/main.js',
-    'theme/js/test.js',
+    'theme/js/test.js'
   ])
   .pipe(concat('main.js'))
-  // .pipe(uglify())
-  .pipe(gulp.dest('js'));
+  .pipe(gulp.dest('static/js'));
+
+  gulp.src([
+    'theme/js/framework/chart-2.7.3.min.js',
+    'theme/js/framework/chartbundle-2.7.3.min.js'
+  ])
+  .pipe(concat('libs.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('static/js'));
+
+  gulp.src([
+    'theme/js/framework/jquery-3.3.1.min.js'
+  ])
+  .pipe(concat('jquery.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('static/js'));
 
   cb();
 }

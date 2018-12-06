@@ -2,13 +2,12 @@
 <html>
   <head>
     {% block head %}
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <title>{% block title %}{% endblock %} - My Webpage</title>
     {% endblock %}
 
-    <script src="/theme/js/jquery-3.3.1.min.js"></script>
-    <script src="/theme/js/chart-2.7.3.min.js"></script>
-    <script src="/theme/js/chartbundle-2.7.3.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/libs.js') }}"></script>
   </head>
   <body>
     <div id="content">{% block content %}{% endblock %}</div>

@@ -1,6 +1,5 @@
 *.pyc
 util/const.py
 node_modules/*
-css/*
-js/*
 theme/js/framework/*
+static/*
