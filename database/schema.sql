@@ -358,31 +358,42 @@ INSERT INTO song_tournament_TBL (tournament_id,song_id,user_id) VALUES
 
 INSERT INTO game_TBL (tournament_id,user_id,state,song_left_id,song_left_after_rating,
 	song_left_score,song_right_score,song_right_after_rating,song_right_id)
+	VALUES (1,1,True,1,1000,5,5,1000,2);
+INSERT INTO game_TBL (tournament_id,user_id,state,song_left_id,song_left_after_rating,
+	song_left_score,song_right_score,song_right_after_rating,song_right_id)
 	VALUES (1,1,True,1,1020,9,1,980,2);
 INSERT INTO game_TBL (tournament_id,user_id,song_left_id,song_right_id) VALUES (1,1,1,2);
 UPDATE game_TBL
 	SET song_left_after_rating = 1010, song_left_score = 4, song_right_score = 6, song_right_after_rating = 990
-	WHERE id = 2 AND tournament_id = 1 AND song_left_id = 1 AND song_right_id = 2;
+	WHERE id = 3 AND tournament_id = 1 AND song_left_id = 1 AND song_right_id = 2;
+INSERT INTO game_TBL (tournament_id,user_id,song_left_id,song_right_id) VALUES (1,1,1,2);
 
 SELECT * FROM user_TBL;
 SELECT * FROM song_TBL;
 SELECT * FROM tournament_TBL ORDER BY creation_time DESC;
-SELECT * FROM game_TBL where tournament_id = 2;
+SELECT * FROM game_TBL;
+SELECT * FROM game_TBL where tournament_id = 2 and ( song_left_id = 4 OR song_right_id = 4) and state = 1 ORDER BY id;
 SELECT * FROM song_tournament_TBL WHERE tournament_id = 2 ORDER BY rating DESC;
 SELECT * FROM tournament_TBL ORDER BY creation_time DESC;
 
-SELECT * FROM song_tournament_TBL WHERE tournament_id = 2 ORDER BY rating DESC;
+#SELECT * FROM song_tournament_TBL WHERE tournament_id = 2 ORDER BY rating DESC;
 
 
-SELECT * FROM s.title, u.alias, st.rating, st.matches, 
-	st.wins, st.draws, st.losses
-                FROM song_tournament_TBL AS st 
-                INNER JOIN user_TBL AS u 
-                    ON u.id = st.user_id 
-                INNER JOIN song_TBL AS s 
-                    ON s.id = st.song_id 
-                WHERE st.tournament_id = 2 
-                ORDER BY st.rating DESC;
+#SELECT s.title, u.alias, st.rating, st.matches, 
+#	st.wins, st.draws, st.losses
+#                FROM song_tournament_TBL AS st 
+#                INNER JOIN user_TBL AS u 
+#                    ON u.id = st.user_id 
+#                INNER JOIN song_TBL AS s 
+#                    ON s.id = st.song_id 
+#                WHERE st.tournament_id = 2 
+#                ORDER BY st.rating DESC;
+
+#SELECT s.title, st.rating, st.matches, st.wins, st.draws, st.losses
+#                FROM song_tournament_TBL AS st
+#                WHERE st.tournament_id = 2;
+                
+#SELECT * FROM song_tournament_TBL WHERE tournament_id = 2;
 
 #SELECT
 #	g.id, g.tournament_id, g.user_id, uc.alias,

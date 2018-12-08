@@ -15,7 +15,8 @@ function scssJob(){
   .pipe(gulp.dest('static/css'));
 
   gulp.src([
-    'theme/scss/framework/test.scss'
+    'theme/scss/framework/test.scss',
+    'theme/scss/framework/bootstrap-glyphicons.scss'
   ])
   .pipe(sass())
   .pipe(concat('libs.css'))
@@ -33,7 +34,7 @@ function jsJob(){
   console.log("\t\tjsJob");
   gulp.src([
     'theme/js/main.js',
-    'theme/js/test.js'
+    'theme/js/tournament.js'
   ])
   .pipe(concat('main.js'))
   .pipe(gulp.dest('static/js'));

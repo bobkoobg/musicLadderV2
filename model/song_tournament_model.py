@@ -7,19 +7,18 @@ class SongTournamentModel(object):
 
     def get_all_songs_by_tournament(self, tournament_id):
         try:
-            print(tournament_id)
             cursor_obj = self.connection.cursor(dictionary=True)
-            statement = "SELECT s.title, u.alias, st.rating, st.matches, st.wins, st.draws, st.losses \
+            statement = "SELECT st.song_id, s.title, u.alias, st.rating, st.matches, st.wins, st.draws, st.losses \
                 FROM song_tournament_TBL AS st \
                 INNER JOIN user_TBL AS u \
                     ON u.id = st.user_id \
                 INNER JOIN song_TBL AS s \
                     ON s.id = st.song_id \
-                WHERE st.tournament_id = 2 \
+                WHERE st.tournament_id = %s \
                 ORDER BY st.rating DESC"
             # cursor_obj.execute(statement,(tournament_id,))
-            # cursor_obj.execute(statement, (tournament_id,))
-            cursor_obj.execute(statement)
+            cursor_obj.execute(statement, (tournament_id,))
+            # cursor_obj.execute(statement)
             return cursor_obj.fetchall()
         except mysql.connector.Error as error :
             print("Failed to execute query zzz: {0}".format(error))
