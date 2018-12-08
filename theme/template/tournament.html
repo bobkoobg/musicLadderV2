@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Index</h1>
+  <p class="important">
+    Welcome on my awesome homepage.
+  </p>
+  <div>
+    <h3>{{ tournament['title'] }}</h3>
+    <div class="desktop-4-100">
+      <div class="desktop-4-50">
+        Type: {{ tournament['tournament_type'] }}
+      </div>
+      <div class="desktop-4-50">
+        State: {{ tournament['state'] }}
+      </div>
+      <div class="desktop-4-50">
+        Round: {{ tournament['round'] }}
+      </div>
+      <div class="desktop-4-50">
+        Created by: {{ tournament['alias'] }}
+      </div>
+      <div class="desktop-4-50">
+        Creation time: {{ tournament['creation_time'] }}
+      </div>
+      <div class="desktop-4-50">
+        Last modification time: {{ tournament['modification_time'] }}
+      </div>
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Song</th>
+        <th scope="col">Uploaded by</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Matches</th>
+        <th scope="col">Wins</th>
+        <th scope="col">Draws</th>
+        <th scope="col">Losses</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ste in song_tournaments %}
+      <tr>
+        <td scope="row">{{ ste['title'] }}</td>
+        <td>{{ ste['alias'] }}</td>
+        <td>{{ ste['rating'] }}</td>
+        <td>{{ ste['matches'] }}</td>
+        <td>{{ ste['wins'] }}</td>
+        <td>{{ ste['draws'] }}</td>
+        <td>{{ ste['losses'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="desktop-4-50">
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

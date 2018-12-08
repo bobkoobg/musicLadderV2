@@ -5,3 +5,4 @@ theme/js/framework/*
 theme/scss/framework/*
 static/*
 package-lock.json
+theme/js/jquery*

@@ -15,8 +15,7 @@ function scssJob(){
   .pipe(gulp.dest('static/css'));
 
   gulp.src([
-    'theme/scss/framework/metisMenu-vertical.scss',
-    'theme/scss/framework/metisMenu.min.scss'
+    'theme/scss/framework/test.scss'
   ])
   .pipe(sass())
   .pipe(concat('libs.css'))
@@ -40,17 +39,14 @@ function jsJob(){
   .pipe(gulp.dest('static/js'));
 
   gulp.src([
-    'theme/js/framework/chart-2.7.3.min.js',
-    'theme/js/framework/chartbundle-2.7.3.min.js',
-    'theme/js/framework/metisMenu.min.js',
-    'theme/js/framework/metisMenu-active.js'
+    'theme/js/framework/**.js'
   ])
   .pipe(concat('libs.js'))
   .pipe(uglify())
   .pipe(gulp.dest('static/js'));
 
   gulp.src([
-    'theme/js/framework/jquery-3.3.1.min.js'
+    'theme/js/jquery-3.3.1.min.js'
   ])
   .pipe(concat('jquery.js'))
   .pipe(uglify())

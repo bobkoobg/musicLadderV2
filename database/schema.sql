@@ -366,9 +366,23 @@ UPDATE game_TBL
 
 SELECT * FROM user_TBL;
 SELECT * FROM song_TBL;
-SELECT * FROM tournament_TBL;
+SELECT * FROM tournament_TBL ORDER BY creation_time DESC;
 SELECT * FROM game_TBL where tournament_id = 2;
 SELECT * FROM song_tournament_TBL WHERE tournament_id = 2 ORDER BY rating DESC;
+SELECT * FROM tournament_TBL ORDER BY creation_time DESC;
+
+SELECT * FROM song_tournament_TBL WHERE tournament_id = 2 ORDER BY rating DESC;
+
+
+SELECT * FROM s.title, u.alias, st.rating, st.matches, 
+	st.wins, st.draws, st.losses
+                FROM song_tournament_TBL AS st 
+                INNER JOIN user_TBL AS u 
+                    ON u.id = st.user_id 
+                INNER JOIN song_TBL AS s 
+                    ON s.id = st.song_id 
+                WHERE st.tournament_id = 2 
+                ORDER BY st.rating DESC;
 
 #SELECT
 #	g.id, g.tournament_id, g.user_id, uc.alias,
