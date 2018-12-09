@@ -23,13 +23,15 @@ class TournamentModel(object):
     def get_one(self, tournament_id):
         try:
             cursor_obj = self.connection.cursor(dictionary=True)
-            tournament_statement = "SELECT t.id, t.title, t.tournament_type, t.state, \
+            statement = "SELECT t.id, t.title, t.tournament_type, t.state, \
                 t.round, t.user_id, u.alias, t.creation_time, t.modification_time \
                 FROM tournament_TBL AS t \
                     INNER JOIN user_TBL AS u \
                         ON u.id = t.user_id \
+                WHERE t.id = %s \
                 ORDER BY creation_time DESC"
-            cursor_obj.execute(tournament_statement)
+            input = (tournament_id,)
+            cursor_obj.execute(statement,input)
             return cursor_obj.fetchone() #yields a list
         except mysql.connector.Error as error :
             print("Failed to execute query: {0}".format(error))

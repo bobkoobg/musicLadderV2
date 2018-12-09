@@ -19,8 +19,8 @@
       <div class="desktop-4-50">
         State: {{ tournament['state'] }}
         <div>
-          {% if (tournament['tournament_type'] == 'ladder' and tournament['state'] == 'open') %}
-          <button type="button" class="btn btn-success">Start tournament and generate matches</button>
+          {% if (tournament['tournament_type'] == 'cup' and tournament['state'] == 'open') %}
+          <button type="button" class="btn btn-success" onclick="$.tournament.push.startCup({{tournament['id']}});">Start tournament and generate matches</button>
           {% endif %}
         </div>
       </div>
@@ -70,140 +70,219 @@
     </table>
     <small>* SID is Song identifier</small>
   </div>
+  <div class="clearfix"></div>
+  <hr class="half-rule" style=" margin-left: 0; text-align: left; width: 100%; ">
+
+  {% if (games_future_tournament_count > 0) %}
+  <div class="matchmaking-wrapper desktop-4-100"
+    data-game-id="{{games_future_tournament[0]['id']}}"
+    data-tournament-id="{{tournament['id']}}"
+    data-song-left-id="{{games_future_tournament[0]['song_left_id']}}"
+    data-song-right-id="{{games_future_tournament[0]['song_right_id']}}"
+  >
+    <h2>Current Match:</h2>
+    <div class="desktop-4-100">
+      <div class="desktop-4-50">
+        <h3>{{ games_future_tournament[0]['s1title'] }}</h3>
+      </div>
+      <div class="desktop-4-50">
+        <h3>{{ games_future_tournament[0]['s2title'] }}</h3>
+      </div>
+    </div>
+    <div class="desktop-4-50">
+      <div>
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{games_future_tournament[0]['s1url']}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <h4>
+        <p>
+          <label for="amount">"{{ games_future_tournament[0]['s1title'] }}" receives:</label>
+          <span type="text" id="left-song-points" readonly style="border:0; color:#f6931f; font-weight:bold;">5</span>
+          <label for="amount">points!</label>
+        </p>
+      </h4>
+    </div>
+    <div class="desktop-4-50">
+      <div>
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/{{games_future_tournament[0]['s2url']}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <h4>
+        <p>
+          <label for="amount">"{{ games_future_tournament[0]['s2title'] }}" receives:</label>
+          <span type="text" id="right-song-points" readonly style="border:0; color:#f6931f; font-weight:bold;">5</span>
+          <label for="amount">points!</label>
+        </p>
+      </h4>
+    </div>
+    <div class="desktop-4-100" style="text-align: center;">
+
+      <div id="slider"></div>
+
+      <div style=" width: 50%; margin: 0 auto; ">
+        <canvas id="projected-results-chart" width="300" height="100"></canvas>
+      </div>
+
+      <h4>The current result is : <span id="current-result" style="border:0; color:#f6931f; font-weight:bold;">5 : 5</span></h4>
+      <button type="button" class="btn btn-success" onclick="$.tournament.push.submitMatch()">Submit your result</button>
+    <div>
+  </div>
+  <div class="clearfix"></div>
+  <hr class="half-rule" style=" margin-left: 0; text-align: left; width: 100%; ">
+  {% endif %}
+
   <div class="desktop-4-50">
     <div class="desktop-4-100">
       <h2>Future Matches:</h2>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col" colspan=2>Song Left</th>
-            <th scope="col" colspan=2>Song Right</th>
-          </tr>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for gfte in games_future_tournament %}
-          <tr>
-            <td>{{ gfte['s1title'] }}</td>
-            <td>{{ gfte['song_left_before_rating'] }}</td>
-            <td>{{ gfte['song_right_before_rating'] }}</td>
-            <td>{{ gfte['s2title'] }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% if (tournament['tournament_type'] == 'cup' and tournament['state'] == 'open') %}
+      <div class="alert alert-primary" role="alert">
+        Please start the tournament and generate matches in order to see future matches!
+      </div>
+      {% else %}
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" colspan=2>Song Left</th>
+              <th scope="col" colspan=2>Song Right</th>
+            </tr>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for gfte in games_future_tournament %}
+            <tr>
+              <td>{{ gfte['s1title'] }}</td>
+              <td>{{ gfte['song_left_before_rating'] }}</td>
+              <td>{{ gfte['song_right_before_rating'] }}</td>
+              <td>{{ gfte['s2title'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
     </div>
     <div class="desktop-4-100">
       <h2>Played Matches:</h2>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col" colspan=2>Song Left</th>
-            <th scope="col">vs</th>
-            <th scope="col" colspan=2>Song Right</th>
-          </tr>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Score</th>
-            <th scope="col">Rating</th>
-            <th scope="col">Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for gte in games_played_tournament %}
-          <tr>
-            <td>{{ gte['s1title'] }}</td>
-            <td>
-              {% if (gte['song_left_before_rating'] > gte['song_left_after_rating'] ) %}
-                <div class="loss-result">
-                  {{gte['song_left_after_rating']}}
-                  <span class="glyphicon glyphicon-arrow-down"></span>
-                  -{{gte['song_left_before_rating']-gte['song_left_after_rating']}}
-                </div>
-              {% elif (gte['song_left_before_rating'] < gte['song_left_after_rating'] ) %}
-                <div class="win-result">
-                  {{ gte['song_left_after_rating'] }}
-                  <span class="glyphicon glyphicon-arrow-up"></span>
-                  +{{gte['song_left_after_rating']-gte['song_left_before_rating']}}
-                </div>
-              {% else %}
+      {% if (tournament['tournament_type'] == 'cup' and tournament['state'] == 'open') %}
+      <div class="alert alert-primary" role="alert">
+        Please start the tournament, generate matches and play matches in order to see future matches!
+      </div>
+      {% else %}
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col" colspan=2>Song Left</th>
+              <th scope="col">vs</th>
+              <th scope="col" colspan=2>Song Right</th>
+            </tr>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Score</th>
+              <th scope="col">Rating</th>
+              <th scope="col">Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for gte in games_played_tournament %}
+            <tr>
+              <td>{{ gte['s1title'] }}</td>
+              <td>
+                {% if (gte['song_left_before_rating'] > gte['song_left_after_rating'] ) %}
+                  <div class="loss-result">
+                    {{gte['song_left_after_rating']}}
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                    -{{gte['song_left_before_rating']-gte['song_left_after_rating']}}
+                  </div>
+                {% elif (gte['song_left_before_rating'] < gte['song_left_after_rating'] ) %}
+                  <div class="win-result">
+                    {{ gte['song_left_after_rating'] }}
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                    +{{gte['song_left_after_rating']-gte['song_left_before_rating']}}
+                  </div>
+                {% else %}
+                  <div class="draw-result">
+                    {{ gte['song_left_after_rating'] }}
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    +0
+                  </div>
+                {% endif %}
+              </td>
+              <td style=" font-weight: 700; ">
+                  {% if (gte['song_left_score'] > gte['song_right_score'] ) %}
+
+                  {% elif (gte['song_left_score'] < gte['song_right_score'] ) %}
+                  {% else %}
+                  {% endif %}
+
+                  <span class="
+                    {% if gte['song_left_score'] > gte['song_right_score'] %}
+                      win-result
+                    {% elif gte['song_left_score'] < gte['song_right_score'] %}
+                      loss-result
+                    {% else %}
+                      draw-result
+                    {% endif %}">
+                    {{ gte['song_left_score'] }}
+                  </span>
+                  :
+                  <span class="
+                    {% if gte['song_left_score'] > gte['song_right_score'] %}
+                      loss-result
+                    {% elif gte['song_left_score'] < gte['song_right_score'] %}
+                      win-result
+                    {% else %}
+                      draw-result
+                    {% endif %}">
+                    {{ gte['song_right_score'] }}
+                  </span>
+
+              </td>
+              <td>
+                {% if (gte['song_right_before_rating'] > gte['song_right_after_rating'] ) %}
+                  <div class="loss-result">
+                    {{gte['song_right_after_rating']}}
+                    <span class="glyphicon glyphicon-arrow-down"></span>
+                    -{{gte['song_right_before_rating']-gte['song_right_after_rating']}}
+                  </div>
+                {% elif (gte['song_right_before_rating'] < gte['song_right_after_rating'] ) %}
+                  <div class="win-result">
+                    {{ gte['song_right_after_rating'] }}
+                    <span class="glyphicon glyphicon-arrow-up"></span>
+                    +{{gte['song_right_after_rating']-gte['song_right_before_rating']}}
+                  </div>
+                {% else %}
                 <div class="draw-result">
-                  {{ gte['song_left_after_rating'] }}
+                  {{ gte['song_right_after_rating'] }}
                   <span class="glyphicon glyphicon-arrow-right"></span>
                   +0
                 </div>
-              {% endif %}
-            </td>
-            <td style=" font-weight: 700; ">
-                {% if (gte['song_left_score'] > gte['song_right_score'] ) %}
-
-                {% elif (gte['song_left_score'] < gte['song_right_score'] ) %}
-                {% else %}
                 {% endif %}
-
-                <span class="
-                  {% if gte['song_left_score'] > gte['song_right_score'] %}
-                    win-result
-                  {% elif gte['song_left_score'] < gte['song_right_score'] %}
-                    loss-result
-                  {% else %}
-                    draw-result
-                  {% endif %}">
-                  {{ gte['song_left_score'] }}
-                </span>
-                :
-                <span class="
-                  {% if gte['song_left_score'] > gte['song_right_score'] %}
-                    loss-result
-                  {% elif gte['song_left_score'] < gte['song_right_score'] %}
-                    win-result
-                  {% else %}
-                    draw-result
-                  {% endif %}">
-                  {{ gte['song_right_score'] }}
-                </span>
-
-            </td>
-            <td>
-              {% if (gte['song_right_before_rating'] > gte['song_right_after_rating'] ) %}
-                <div class="loss-result">
-                  {{gte['song_right_after_rating']}}
-                  <span class="glyphicon glyphicon-arrow-down"></span>
-                  -{{gte['song_right_before_rating']-gte['song_right_after_rating']}}
-                </div>
-              {% elif (gte['song_right_before_rating'] < gte['song_right_after_rating'] ) %}
-                <div class="win-result">
-                  {{ gte['song_right_after_rating'] }}
-                  <span class="glyphicon glyphicon-arrow-up"></span>
-                  +{{gte['song_right_after_rating']-gte['song_right_before_rating']}}
-                </div>
-              {% else %}
-              <div class="draw-result">
-                {{ gte['song_right_after_rating'] }}
-                <span class="glyphicon glyphicon-arrow-right"></span>
-                +0
-              </div>
-              {% endif %}
-            </td>
-            <td>{{ gte['s2title'] }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+              </td>
+              <td>{{ gte['s2title'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
     </div>
 
   </div>
   <div class="desktop-4-50">
+    <h3>Graphics of rating changes:</h3>
+    {% if (tournament['tournament_type'] == 'cup' and tournament['state'] == 'open') %}
+    <div class="alert alert-primary" role="alert">
+      Please start the tournament, generate matches and play matches in order to see graphs regarding the rankings!
+    </div>
+    {% else %}
     <canvas id="myChart" width="400" height="400"></canvas>
+    {% endif %}
   </div>
   <script>
     var song_tournament_rating = {{ song_tournament_rating|tojson }};
+    var projected_results = {{ projected_results|tojson }};
   </script>
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}

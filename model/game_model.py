@@ -35,7 +35,7 @@ class GameModel(object):
             	INNER JOIN song_TBL AS s2 \
             		ON g.song_right_id = s2.id \
             	WHERE g.tournament_id = %s AND g.state = %s\
-                ORDER BY g.round ASC"
+                ORDER BY g.id ASC"
             input = (tournament_id,state,)
             cursor_obj.execute(statement, input)
             return cursor_obj.fetchall()
@@ -45,11 +45,12 @@ class GameModel(object):
 
     def update_game(self, data):
         try:
+            print("data {0}".format(data))
             cursor_obj = self.connection.cursor(prepared=True)
             tournament_statement = "UPDATE game_TBL \
-               SET song_left_before_rating = ?, song_left_after_rating = ?, song_left_score = ?, \
-               song_right_score = ?, song_right_after_rating = ?, song_right_before_rating = ? \
-               WHERE id = ? AND tournament_id = ? AND song_left_id = ? AND song_right_id = ?"
+               SET song_left_before_rating = %s, song_left_after_rating = %s, song_left_score = %s, \
+               song_right_score = %s, song_right_after_rating = %s, song_right_before_rating = %s \
+               WHERE id = %s AND tournament_id = %s AND song_left_id = %s AND song_right_id = %s"
             cursor_obj.execute(tournament_statement, (
                 data['song_left_before_rating'],
                 data['song_left_after_rating'],
