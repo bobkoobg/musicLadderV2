@@ -84,10 +84,9 @@ $.tournament = {
       step: 1,
       slide: function( event, ui ) {
         console.log(" ? ", ui.value);
-        $("#left-song-points").html(ui.value);
-        $("#right-song-points").html(10-ui.value);
-        console.log("> ", ui.value + " : " + (10-ui.value));
-        $("#current-result").html( ui.value + " : " + (10-ui.value) );
+        $("#left-song-points").html(10-ui.value);
+        $("#right-song-points").html(ui.value);
+        $("#current-result").html( (10-ui.value) + " : " + (ui.value) );
       }
     });
     $( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
