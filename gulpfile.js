@@ -7,11 +7,24 @@ const watch = require('gulp-watch');
 function scssJob(){
   console.log("\t\tscssJob");
   gulp.src([
-    'theme/scss/main.scss',
-    'theme/scss/test.scss'
+    'theme/scss/main.scss'
   ])
   .pipe(sass())
   .pipe(concat('main.css'))
+  .pipe(gulp.dest('static/css'));
+
+  gulp.src([
+    'theme/scss/front.scss'
+  ])
+  .pipe(sass())
+  .pipe(concat('front.css'))
+  .pipe(gulp.dest('static/css'));
+
+  gulp.src([
+    'theme/scss/tournament.scss'
+  ])
+  .pipe(sass())
+  .pipe(concat('tournament.css'))
   .pipe(gulp.dest('static/css'));
 
   gulp.src([
@@ -33,10 +46,15 @@ function scssJob(){
 function jsJob(){
   console.log("\t\tjsJob");
   gulp.src([
-    'theme/js/main.js',
-    'theme/js/tournament.js'
+    'theme/js/main.js'
   ])
   .pipe(concat('main.js'))
+  .pipe(gulp.dest('static/js'));
+
+  gulp.src([
+    'theme/js/tournament.js'
+  ])
+  .pipe(concat('tournament.js'))
   .pipe(gulp.dest('static/js'));
 
   gulp.src([

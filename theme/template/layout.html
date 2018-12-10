@@ -1,37 +1,32 @@
 <!doctype html>
 <html>
   <head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/libs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flexee.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    {% block head %}
-      <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/libs.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-      <link rel="stylesheet" href="{{ url_for('static', filename='css/flexee.css') }}">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-      <title>{% block title %}{% endblock %} - My Webpage</title>
-    {% endblock %}
     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/libs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    {% block css_block %}{% endblock %}
+    {% block js_block %}{% endblock %}
   </head>
   <body>
-    <div class="main-wrapper">
-      {% include 'leftnav.html' %}
-      <div class="all-content-wrapper desktop-4-80">
-        {% include 'topnav.html' %}
-        {% block content %}{% endblock %}
-      </div>
+    {% include 'topnav.html' %}
+    {% include 'leftnav.html' %}
+    <div id="main" class="all-content-wrapper">
+      {% block content %}{% endblock %}
     </div>
-    <div id="footer">
-      {% block footer %}
-      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
-      {% endblock %}
-    </div>
+    {% include 'footer.html' %}
   </body>
 </html>

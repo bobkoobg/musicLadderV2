@@ -1,25 +1,73 @@
+$darkblue: #003366;
+$darkGray: #818181;
+$lightGray: #f1f1f1;
+
+html {
+  background: url('../img/music-colour-splash.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 body {
   margin: 0px !important;
 
-  .main-wrapper {
-    width: 100%;
-    overflow: auto;
+  .open-close-sidenav {
+    font-size:30px;
+    cursor:pointer
   }
-}
 
-table {
-  text-align: center;
-}
+  #topnav {
+    height: 80px;
+    background-color: $darkblue;
+  }
 
-.loss-result {
-  color: red;
-}
+  /* The side navigation menu */
+  #sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: $darkblue; /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 
-.win-result {
-  color: green;
-}
+    .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+  }
 
-.draw-result {
-  color: orange;
+  #topnav,
+  #sidenav {
+
+    span,
+    a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: $darkGray;
+      display: block;
+      transition: 0.3s;
+
+      &:hover {
+        color: $lightGray;
+      }
+    }
+  }
+
+  #main {
+    padding: 20px;
+  }
+
+  .footer {
+    background-color: inherit;
+  }
 }

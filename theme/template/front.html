@@ -1,54 +1,48 @@
 {% extends "layout.html" %}
-{% block title %}Index{% endblock %}
-{% block head %}
-  {{ super() }}
-  <style type="text/css">
-  </style>
+
+{% block title %}
+  Front page
 {% endblock %}
+
+{% block css_block %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/front.css') }}">
+{% endblock %}
+
 {% block content %}
-  <h1>Index</h1>
-  <p class="important">
-    Welcome on my awesome homepage.
-  </p>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Type</th>
-      <th scope="col">State</th>
-      <th scope="col">Round</th>
-      <th scope="col">Created by</th>
-      <th scope="col">Creation time</th>
-      <th scope="col">Modification time</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for tournament in tournaments %}
-    <tr>
-      <th scope="row">{{ tournament['id'] }}</th>
-      <td>{{ tournament['title'] }}</td>
-      <td>{{ tournament['tournament_type'] }}</td>
-      <td>{{ tournament['state'] }}</td>
-      <td>{{ tournament['round'] }}</td>
-      <td>{{ tournament['alias'] }}</td>
-      <td>{{ tournament['creation_time'] }}</td>
-      <td>{{ tournament['modification_time'] }}</td>
-      <td>
-        <a href="/tournament/{{tournament['id']}}">
-          <button type="button" class="btn btn-primary">View</button>
-        </a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-  <div class="desktop-4-50">
-    <canvas id="myChart" width="400" height="400"></canvas>
+  <div class="left-front-wrapper desktop-4-80">
+    <div class="some-stuff">
+      Blob
+    </div>
+  </div>
+  <div class="right-front-wrapper desktop-4-20">
+    <div class="tournaments-wrapper">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Type</th>
+            <th scope="col">State</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tournament in tournaments %}
+          <tr>
+            <td>{{ tournament['title'] }}</td>
+            <td>{{ tournament['tournament_type'] }}</td>
+            <td>{{ tournament['state'] }}</td>
+            <td>
+              <a href="/tournament/{{tournament['id']}}">
+                <button type="button" class="btn btn-primary btn-sm">View</button>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}

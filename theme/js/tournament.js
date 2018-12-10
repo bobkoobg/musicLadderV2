@@ -142,7 +142,3 @@ $.tournament = {
     });
   }
 }
-
-$.tournament.loadChart();
-$.tournament.loadSlider();
-$.tournament.loadProjectedResults();

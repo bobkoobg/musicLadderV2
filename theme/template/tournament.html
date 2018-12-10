@@ -1,15 +1,20 @@
 {% extends "layout.html" %}
-{% block title %}Index{% endblock %}
-{% block head %}
-  {{ super() }}
-  <style type="text/css">
-  </style>
+
+{% block title %}
+  Tournament: {{ tournament['title'] }}
 {% endblock %}
+
+{% block css_block %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tournament.css') }}">
+{% endblock %}
+
+{% block js_block %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/tournament.js') }}"></script>
+{% endblock %}
+
 {% block content %}
-  <h1>Index</h1>
-  <p class="important">
-    Welcome on my awesome homepage.
-  </p>
   <div>
     <h3>{{ tournament['title'] }}</h3>
     <div class="desktop-4-100">
@@ -283,6 +288,8 @@
   <script>
     var song_tournament_rating = {{ song_tournament_rating|tojson }};
     var projected_results = {{ projected_results|tojson }};
+    $.tournament.loadChart();
+    $.tournament.loadSlider();
+    $.tournament.loadProjectedResults();
   </script>
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}
