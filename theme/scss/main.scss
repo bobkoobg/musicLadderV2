@@ -1,4 +1,4 @@
-$darkblue: #003366;
+$darkblue: #0e0c28;
 $darkGray: #818181;
 $lightGray: #f1f1f1;
 
@@ -65,6 +65,10 @@ body {
 
   #main {
     padding: 20px;
+
+    #slider-wrapper {
+        transition: margin 0.5s;
+    }
   }
 
   .footer {

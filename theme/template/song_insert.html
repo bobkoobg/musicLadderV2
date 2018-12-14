@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Song Insert
+{% endblock %}
+
+{% block css_block %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/song.css') }}">
+{% endblock %}
+
+{% block js_block %}
+  {{ super() }}
+  <script src="{{ url_for('static', filename='js/song.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="insert-wrapper">
+    <div class="insert-inner-wrapper">
+      <div class="form-group">
+        <label for="song-title">Song Title</label>
+        <input type="text" class="form-control" id="song-title" placeholder="Song title">
+      </div>
+      <div class="form-group">
+        <label for="song-url">Song URL</label>
+        <input type="text" class="form-control" id="song-url" placeholder="Song url">
+      </div>
+      <button type="button" class="btn btn-success" onclick="$.song.push.submitSong();">Insert</button>
+    </div>
+  </div>
+
+  <script>
+  </script>
+{% endblock %}

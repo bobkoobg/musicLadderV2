@@ -28,6 +28,13 @@ function scssJob(){
   .pipe(gulp.dest('static/css'));
 
   gulp.src([
+    'theme/scss/song.scss'
+  ])
+  .pipe(sass())
+  .pipe(concat('song.css'))
+  .pipe(gulp.dest('static/css'));
+
+  gulp.src([
     'theme/scss/framework/test.scss',
     'theme/scss/framework/bootstrap-glyphicons.scss'
   ])
@@ -55,6 +62,12 @@ function jsJob(){
     'theme/js/tournament.js'
   ])
   .pipe(concat('tournament.js'))
+  .pipe(gulp.dest('static/js'));
+
+  gulp.src([
+    'theme/js/song.js'
+  ])
+  .pipe(concat('song.js'))
   .pipe(gulp.dest('static/js'));
 
   gulp.src([

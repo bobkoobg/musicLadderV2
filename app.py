@@ -3,8 +3,10 @@ from flask import Flask, request, url_for, render_template, make_response, redir
 from util.database_connection import DatabaseConnector
 from controller.front_controller import FrontController
 from controller.tournament_controller import TournamentController
+from controller.song_insert_controller import SongInsertController
 from controller.json.tournament_cup_create import TournamentCupCreate
 from controller.json.game_update import GameUpdate
+from controller.json.song_insert import SongInsert
 
 
 def get_connection():
@@ -40,6 +42,15 @@ def init_tournament_cup(tournament_id=None):
 def game_update(game_id=None):
     if request.method == 'POST':
         controller = GameUpdate(g.connection, game_id)
+        return controller.init()
+
+@app.route('/song/insert', methods=['GET','POST'])
+def song_insert(game_id=None):
+    if request.method == 'GET':
+        controller = SongInsertController(g.connection)
+        return controller.init()
+    elif request.method == 'POST':
+        controller = SongInsert(g.connection)
         return controller.init()
 
 if __name__ == "__main__":
